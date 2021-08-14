@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>KVM虚拟机克隆和快照使用方法 | 蚝仔烙</title>
+    <meta name="generator" content="VuePress 1.8.2">
+    <link rel="icon" href="/favicon.ico">
+    <meta name="description" content="This is the personal blog of oyster">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+    
+    <link rel="preload" href="/assets/css/0.styles.f7db033e.css" as="style"><link rel="preload" href="/assets/js/app.cb239607.js" as="script"><link rel="preload" href="/assets/js/3.b5031865.js" as="script"><link rel="preload" href="/assets/js/1.21311c90.js" as="script"><link rel="preload" href="/assets/js/8.4f1544dc.js" as="script"><link rel="preload" href="/assets/js/15.f0eedfb9.js" as="script"><link rel="prefetch" href="/assets/js/10.07217ceb.js"><link rel="prefetch" href="/assets/js/11.7dcea16d.js"><link rel="prefetch" href="/assets/js/12.4a5b938a.js"><link rel="prefetch" href="/assets/js/13.2ec8b12e.js"><link rel="prefetch" href="/assets/js/14.85b8f9a3.js"><link rel="prefetch" href="/assets/js/16.60f0a9eb.js"><link rel="prefetch" href="/assets/js/17.51743234.js"><link rel="prefetch" href="/assets/js/18.19a85d64.js"><link rel="prefetch" href="/assets/js/19.f2c9559a.js"><link rel="prefetch" href="/assets/js/20.e8956008.js"><link rel="prefetch" href="/assets/js/21.382df535.js"><link rel="prefetch" href="/assets/js/22.cff47005.js"><link rel="prefetch" href="/assets/js/23.398482ee.js"><link rel="prefetch" href="/assets/js/24.d630b366.js"><link rel="prefetch" href="/assets/js/25.275780ab.js"><link rel="prefetch" href="/assets/js/26.23e5b2b0.js"><link rel="prefetch" href="/assets/js/27.77924f3d.js"><link rel="prefetch" href="/assets/js/28.154c79c8.js"><link rel="prefetch" href="/assets/js/29.d17c191b.js"><link rel="prefetch" href="/assets/js/30.aa5d257a.js"><link rel="prefetch" href="/assets/js/31.12a80f6c.js"><link rel="prefetch" href="/assets/js/32.ba8121ce.js"><link rel="prefetch" href="/assets/js/33.6819db4f.js"><link rel="prefetch" href="/assets/js/34.0dbf4641.js"><link rel="prefetch" href="/assets/js/35.312f1271.js"><link rel="prefetch" href="/assets/js/36.0f0b6a1b.js"><link rel="prefetch" href="/assets/js/4.5240f799.js"><link rel="prefetch" href="/assets/js/5.ee618cb0.js"><link rel="prefetch" href="/assets/js/6.ffe3abe9.js"><link rel="prefetch" href="/assets/js/7.01f76950.js"><link rel="prefetch" href="/assets/js/9.25ddbd8c.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.f7db033e.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar" data-v-1156296a><div data-v-1156296a><div id="loader-wrapper" class="loading-wrapper" data-v-d48f4d20 data-v-1156296a data-v-1156296a><div class="loader-main" data-v-d48f4d20><div data-v-d48f4d20></div><div data-v-d48f4d20></div><div data-v-d48f4d20></div><div data-v-d48f4d20></div></div> <!----> <!----></div> <div class="password-shadow password-wrapper-out" style="display:none;" data-v-4e82dffc data-v-1156296a data-v-1156296a><h3 class="title" data-v-4e82dffc data-v-4e82dffc>蚝仔烙</h3> <p class="description" data-v-4e82dffc data-v-4e82dffc>This is the personal blog of oyster</p> <label id="box" class="inputBox" data-v-4e82dffc data-v-4e82dffc><input type="password" value="" data-v-4e82dffc> <span data-v-4e82dffc>Konck! Knock!</span> <button data-v-4e82dffc>OK</button></label> <div class="footer" data-v-4e82dffc data-v-4e82dffc><span data-v-4e82dffc><i class="iconfont reco-theme" data-v-4e82dffc></i> <a target="blank" href="https://vuepress-theme-reco.recoluan.com" data-v-4e82dffc>vuePress-theme-reco</a></span> <span data-v-4e82dffc><i class="iconfont reco-copyright" data-v-4e82dffc></i> <a data-v-4e82dffc><span data-v-4e82dffc>蚝仔烙</span>
+            
+          <!---->
+          2021
+        </a></span></div></div> <div class="hide" data-v-1156296a><header class="navbar" data-v-1156296a><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><img src="/head.png" alt="蚝仔烙" class="logo"> <span class="site-name">蚝仔烙</span></a> <div class="links"><div class="color-picker"><a class="color-button"><i class="iconfont reco-color"></i></a> <div class="color-picker-menu" style="display:none;"><div class="mode-options"><h4 class="title">Choose mode</h4> <ul class="color-mode-options"><li class="dark">dark</li><li class="auto active">auto</li><li class="light">light</li></ul></div></div></div> <div class="search-box"><i class="iconfont reco-search"></i> <input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/" class="nav-link"><i class="iconfont reco-home"></i>
+  家
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont reco-category"></i>
+      分类
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/categories/Linux/" class="nav-link"><i class="undefined"></i>
+  Linux
+</a></li><li class="dropdown-item"><!----> <a href="/categories/docker/" class="nav-link"><i class="undefined"></i>
+  docker
+</a></li><li class="dropdown-item"><!----> <a href="/categories/KVM/" class="nav-link"><i class="undefined"></i>
+  KVM
+</a></li><li class="dropdown-item"><!----> <a href="/categories/数据库/" class="nav-link"><i class="undefined"></i>
+  数据库
+</a></li><li class="dropdown-item"><!----> <a href="/categories/grafana/" class="nav-link"><i class="undefined"></i>
+  grafana
+</a></li><li class="dropdown-item"><!----> <a href="/categories/zabbix/" class="nav-link"><i class="undefined"></i>
+  zabbix
+</a></li><li class="dropdown-item"><!----> <a href="/categories/nginx/" class="nav-link"><i class="undefined"></i>
+  nginx
+</a></li><li class="dropdown-item"><!----> <a href="/categories/selinux/" class="nav-link"><i class="undefined"></i>
+  selinux
+</a></li><li class="dropdown-item"><!----> <a href="/categories/redis/" class="nav-link"><i class="undefined"></i>
+  redis
+</a></li><li class="dropdown-item"><!----> <a href="/categories/shell/" class="nav-link"><i class="undefined"></i>
+  shell
+</a></li><li class="dropdown-item"><!----> <a href="/categories/黑苹果/" class="nav-link"><i class="undefined"></i>
+  黑苹果
+</a></li></ul></div></div><div class="nav-item"><a href="/tag/" class="nav-link"><i class="iconfont reco-tag"></i>
+  标签
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont reco-message"></i>
+      联系
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="https://github.com/" target="_blank" rel="noopener noreferrer" class="nav-link external"><i class="iconfont reco-github"></i>
+  GitHub
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li></ul></div></div> <!----></nav></div></header> <div class="sidebar-mask" data-v-1156296a></div> <aside class="sidebar" data-v-1156296a><div class="personal-info-wrapper" data-v-828910c6 data-v-1156296a><img src="/head.png" alt="author-avatar" class="personal-img" data-v-828910c6> <h3 class="name" data-v-828910c6>
+    蚝仔烙
+  </h3> <div class="num" data-v-828910c6><div data-v-828910c6><h3 data-v-828910c6>24</h3> <h6 data-v-828910c6>Articles</h6></div> <div data-v-828910c6><h3 data-v-828910c6>15</h3> <h6 data-v-828910c6>Tags</h6></div></div> <ul class="social-links" data-v-828910c6></ul> <hr data-v-828910c6></div> <nav class="nav-links"><div class="nav-item"><a href="/" class="nav-link"><i class="iconfont reco-home"></i>
+  家
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont reco-category"></i>
+      分类
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/categories/Linux/" class="nav-link"><i class="undefined"></i>
+  Linux
+</a></li><li class="dropdown-item"><!----> <a href="/categories/docker/" class="nav-link"><i class="undefined"></i>
+  docker
+</a></li><li class="dropdown-item"><!----> <a href="/categories/KVM/" class="nav-link"><i class="undefined"></i>
+  KVM
+</a></li><li class="dropdown-item"><!----> <a href="/categories/数据库/" class="nav-link"><i class="undefined"></i>
+  数据库
+</a></li><li class="dropdown-item"><!----> <a href="/categories/grafana/" class="nav-link"><i class="undefined"></i>
+  grafana
+</a></li><li class="dropdown-item"><!----> <a href="/categories/zabbix/" class="nav-link"><i class="undefined"></i>
+  zabbix
+</a></li><li class="dropdown-item"><!----> <a href="/categories/nginx/" class="nav-link"><i class="undefined"></i>
+  nginx
+</a></li><li class="dropdown-item"><!----> <a href="/categories/selinux/" class="nav-link"><i class="undefined"></i>
+  selinux
+</a></li><li class="dropdown-item"><!----> <a href="/categories/redis/" class="nav-link"><i class="undefined"></i>
+  redis
+</a></li><li class="dropdown-item"><!----> <a href="/categories/shell/" class="nav-link"><i class="undefined"></i>
+  shell
+</a></li><li class="dropdown-item"><!----> <a href="/categories/黑苹果/" class="nav-link"><i class="undefined"></i>
+  黑苹果
+</a></li></ul></div></div><div class="nav-item"><a href="/tag/" class="nav-link"><i class="iconfont reco-tag"></i>
+  标签
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont reco-message"></i>
+      联系
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="https://github.com/" target="_blank" rel="noopener noreferrer" class="nav-link external"><i class="iconfont reco-github"></i>
+  GitHub
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li></ul></div></div> <!----></nav> <!----> </aside> <div class="password-shadow password-wrapper-in" style="display:none;" data-v-4e82dffc data-v-1156296a><h3 class="title" data-v-4e82dffc data-v-4e82dffc>KVM虚拟机克隆和快照使用方法</h3> <!----> <label id="box" class="inputBox" data-v-4e82dffc data-v-4e82dffc><input type="password" value="" data-v-4e82dffc> <span data-v-4e82dffc>Konck! Knock!</span> <button data-v-4e82dffc>OK</button></label> <div class="footer" data-v-4e82dffc data-v-4e82dffc><span data-v-4e82dffc><i class="iconfont reco-theme" data-v-4e82dffc></i> <a target="blank" href="https://vuepress-theme-reco.recoluan.com" data-v-4e82dffc>vuePress-theme-reco</a></span> <span data-v-4e82dffc><i class="iconfont reco-copyright" data-v-4e82dffc></i> <a data-v-4e82dffc><span data-v-4e82dffc>蚝仔烙</span>
+            
+          <!---->
+          2021
+        </a></span></div></div> <div data-v-1156296a><main class="page"><section><div class="page-title"><h1 class="title">KVM虚拟机克隆和快照使用方法</h1> <div data-v-1ff7123e><i class="iconfont reco-account" data-v-1ff7123e><span data-v-1ff7123e>蚝仔烙</span></i> <i class="iconfont reco-date" data-v-1ff7123e><span data-v-1ff7123e>5/21/2021</span></i> <!----> <i class="tags iconfont reco-tag" data-v-1ff7123e><span class="tag-item" data-v-1ff7123e>Linux</span><span class="tag-item" data-v-1ff7123e>KVM</span></i></div></div> <div class="theme-reco-content content__default"><h1 id="kvm虚拟机克隆方法"><a href="#kvm虚拟机克隆方法" class="header-anchor">#</a> KVM虚拟机克隆方法</h1> <h2 id="一、-克隆kvm虚拟机的语法和注意事项"><a href="#一、-克隆kvm虚拟机的语法和注意事项" class="header-anchor">#</a> 一、 克隆KVM虚拟机的语法和注意事项</h2> <p>语法：virt-clone –o 原虚拟机 –n 新虚拟机 –f 新虚拟机存放的路径</p> <p>注：需要克隆的虚拟机必须是关机状态，不然没办法克隆。
+<img src="/assets/img/kvm-clone-01.af598415.png" alt="An image"></p> <h2 id="二、-克隆kvm虚拟机-centos7-0"><a href="#二、-克隆kvm虚拟机-centos7-0" class="header-anchor">#</a> 二、 克隆KVM虚拟机（centos7.0）</h2> <p>1、 关闭centos7.0虚拟机</p> <p>[root@xuegod110 ~]# virsh shutdown centos7.0</p> <p>2、克隆centos7.0虚拟机</p> <p>[root@xuegod110 ~]# virt-clone -o centos7.0 -n xuegod110 -f /var/lib/libvirt/images/xuegod110.img
+<img src="/assets/img/kvm-clone-02.ece57347.png" alt="An image"></p> <p>3、 查看下前后克隆虚拟机文件的大小</p> <p>克隆前21G，克隆后虚拟机1.5G
+<img src="/assets/img/kvm-clone-03.8ffb9fbf.png" alt="An image"></p> <p>3、 KVM虚拟机组成部分</p> <ol><li>一台KVM虚拟机由两部分组成：虚拟机配置文件和镜像img</li></ol> <div class="language- line-numbers-mode"><pre class="language-text"><code>[root@xuegod110 ~]# ll /var/lib/libvirt/images/xuegod110.img #镜像
+-rw------- 1 root root 1565196288 Sep 1 20:19 /var/lib/libvirt/images/xuegod110.img
+[root@xuegod110 ~]# ll /etc/libvirt/qemu/xuegod110.xml 配置文件
+-rw------- 1 root root 4645 Sep 1 20:19 /etc/libvirt/qemu/xuegod110.xml
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br></div></div><ol start="2"><li>查看配置文件</li></ol> <div class="language- line-numbers-mode"><pre class="language-text"><code>[root@xuegod110 ~]# vim /etc/libvirt/qemu/xuegod110.xml
+………#虚拟机的基本配置信息
+&lt;domain type='kvm'&gt;
+  &lt;name&gt;xuegod110&lt;/name&gt;
+  &lt;uuid&gt;44e3dd87-a3c2-4d33-bbc5-5427bbfd1b3a&lt;/uuid&gt;
+  &lt;memory unit='KiB'&gt;2097152&lt;/memory&gt;
+  &lt;currentMemory unit='KiB'&gt;2097152&lt;/currentMemory&gt;
+  &lt;vcpu placement='static'&gt;4&lt;/vcpu&gt;
+………#虚拟机的镜像文件类型和存放路径
+&lt;emulator&gt;/usr/libexec/qemu-kvm&lt;/emulator&gt;
+    &lt;disk type='file' device='disk'&gt;
+      &lt;driver name='qemu' type='qcow2'/&gt;
+      &lt;source file='/var/lib/libvirt/images/xuegod110.img'/&gt;
+	    &lt;target dev='vda' bus='virtio'/&gt;
+      &lt;boot order='2'/&gt;
+      &lt;address type='pci' domain='0x0000' bus='0x00' slot='0x07' function='0x0'/&gt;
+&lt;/disk&gt;
+
+………#虚拟机的网络配置信息
+    &lt;interface type='bridge'&gt;
+      &lt;mac address='52:54:00:29:2e:f8'/&gt;
+      &lt;source bridge='br0'/&gt;
+      &lt;model type='virtio'/&gt;
+      &lt;address type='pci' domain='0x0000' bus='0x00' slot='0x03' function='0x0'/&gt;
+    &lt;/interface&gt;
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br></div></div><ol start="3"><li>对比克隆前后两个配置文件的不同</li></ol> <div class="language- line-numbers-mode"><pre class="language-text"><code>[root@xuegod110 ~]# vimdiff /etc/libvirt/qemu/centos7.0.xml /etc/libvirt/qemu/xuegod110.xml
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br></div></div><p>使用vimdiff命令查看两份文件的不同之后，不一样的会用颜色标记出来
+虚拟机的名称和UUID不一样，UUID会自动更改
+<img src="/assets/img/kvm-clone-04.2aac074b.png" alt="An image"></p> <ol start="4"><li>启动克隆的虚拟机，测试</li></ol> <div class="language- line-numbers-mode"><pre class="language-text"><code>[root@xuegod110 ~]# virsh start xuegod110
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br></div></div><p>查看IP和MAC地址</p> <p>注：克隆后的虚拟机，如果IP地址设置的固定地址，那么开机后需要修改IP地址，不然会和原虚拟机出现IP地址冲突的情况，如果是自动获取的则不存在这种情况。</p> <p>5、 在centos6下KVM克隆后的操作</p> <p>登录新克隆的虚拟机删除原来的 mac 和 IP 地址，让新克隆的机器可以上网：</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>[root@xuegod63 ~]# rm -rf /etc/udev/rules.d/70-persistent-*
+[root@xuegod63 ~]#vim /etc/sysconfig/network-scripts/ifcfg-eth0 #写入以下内容
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br></div></div><p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMsAAABSCAYAAAD6kiC4AAABR2lDQ1BJQ0MgUHJvZmlsZQAAKJFjYGASSSwoyGFhYGDIzSspCnJ3UoiIjFJgf8rAzCDLIMjAziCUmFxc4BgQ4ANUwgCjUcG3awyMIPqyLsisn0sDg65eXGzTL+Yoorj1gCOmehTAlZJanAyk/wBxWnJBUQkDA2MKkK1cXlIAYncA2SJFQEcB2XNA7HQIewOInQRhHwGrCQlyBrJvANkCyRmJQDMYXwDZOklI4ulIbKi9IMDj4urjoxBqZGJo4kHAuaSDktSKEhDtnF9QWZSZnlGi4AgMpVQFz7xkPR0FIwMjQwYGUJhDVH8OAoclo9g+hFj+EgYGi28MDMwTEWJJUxgYtrcxMEjcQoipzGNg4G9hYNh2qCCxKBHuAMZvLMVpxkYQNo89AwPr3f//P2swMLBPZGD4O/H//9+L////uxho/m0GhgOVABBIYDbhEsE6AAAAOGVYSWZNTQAqAAAACAABh2kABAAAAAEAAAAaAAAAAAACoAIABAAAAAEAAADLoAMABAAAAAEAAABSAAAAAHC/e5oAACEISURBVHgB7d1nrGVV2QfwTUcBUVSQ6kUFVIogRZB2QUGRaqENPRgiAflACEQTCCHhk4EEQkgIRQhFadKkKsOAYgPpohRx6BaaKChN3vNb8B/2Pe+du8/AMNyynmTffc5e/VlPX8/Zd76maV7vXRUqBioGOjAwf0d5La4YqBh4EwOVWSopVAwMiIHKLAMiqlarGKjMUmmgYmBADFRmGRBRtVrFQGWWSgMVAwNioDLLgIiq1SoGKrNUGqgYGBADlVkGRFStVjGwYBcKPvCBDzTrrbde86EPfaj53//+18w///zNzTff3Pz1r38tTT/xiU80a621Vnn+2muvlfvCCy/c3Hbbbc1jjz1W2i600ELNr371q+a///1vo+wLX/hC49nvfve75t///nez5pprNp/97GdL/48++mhzxx13lLoGMP7mm29e6vt+5513Nn/+85/LfDbeeONmkUUWaYwL9G3MW2+9tXn55ZfLs3fyZ8kll2ys7y9/+Uvz3HPPla6Mt/766zfLLbdc89BDD5W5vvrqqyOGWWWVVZrVV1+9ef3115sFF1yw+fvf/9789re/nStzGjFQ/TJPMdCpWV555ZXCANtss03z8Y9/vPnoRz/aTJs2rfnYxz5WJvriiy82Q0NDzfbbb9/861//ap5++unma1/7WvPJT36yEMomm2xSiB2TgQUWWKDxbHh4eBYD/POf/2w+//nPN1/+8peb//znP02ID7HqVxkm+OAHP9h8/etfb1ZYYYVSD+Gay+KLL9488cQTzTrrrNNgIGPMDTDPr3zlKyP6w5gvvfRS86UvfalZd911Z80148HRLrvs0nzkIx9pHnnkkcJku+66a7PhhhumSr1PUAx0ahbES4JiCpt/0003NYceemghiNNPP71oGNrg05/+dPOnP/2pMMz555/fPPvss818881XtAWN1Abf28/0+7e//a3U9xmzkMhbbLFFIf4TTjihue+++4qEx2Tvf//7i+a5//77S7fmd/fddxdJvvzyyxfmVrD00ks373vf+8rzjI8xXfpXjrHMkyZ66qmnytiYdKmllioa88Mf/nDRItoTBOZG0+jDGmhc8/nHP/5R+lCfNqJJb7/99vLZM9oG7ipMXAx0MoulRSsgKgT1/PPPN0M9bYLgAspIT6bQlVdeWR6nHXOkDb73P9MepI07DeL5448/XsoQ5DXXXDOL0ZTRfKuuumqDSX7zm98UpvIMeI5Iox0RNxPyhRdeaNZee+1ms802KxoJw9CYM2bMaO65557ymVZB5JiNtmJWYhagfhiF1qNhfvnLXxazkuYxnjtTbc8992wWXXTRoo1K4/pnwmLgLWqfgyWESNtNMM5nPvOZQtwxpUjodwKILnZ/+mHqtUE50wfwVTBygE/kagMNYl677bZb0RJ//OMfC9N/8YtfLMR9zDHHFOa87LLLitm3zDLLFOZ/5pln2t2UeTG1aFBMtP/++zf33ntvYRJz4rPwbQDmjDAY0Un9MqEw8LaYBTFEA1gtQmDHX3zxxUWzxOdQxpFXzowDGMl3GqiLgDKG8UYD7TEp84b2iROeugIPK620UmEKdfWDoZhQ5oUZzYMWuOqqq8pzcxeIME/lNAhid7WBdmF20jiCE/wnY6hvTkzIK664ornhhhuao48+eoTf0+6nfp44GBiIWRATQkMIAGEgqhCx5wiblOV70DCI6YEHHmiuvfbaZqeddmq23nrr5he/+EUx1ZZYYonm6quvnsVA+tSH/owVQKwIT18AYXPiReIefvjhMgfjYlT+Cx9EpI3/gjldGMNcwyz614ZppB4N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" alt="An image"></p> <p>注： 记得把 ONBOOT=“no” 改为： ONBOOT=“yes”</p> <p>注：把原配置文件中的 MAC 和 UUID 地址删除，然后修改一个和原虚拟机不一样的 IP</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>[root@xuegod63 ~]# reboot #重启生效
+方法 1：[root@xuegod63 ~]# reboot #重启生效
+或方法 2：
+[root@xuegod63 ~]# start_udev # 重新启动udev 服务，自动生成刚删除的
+/etc/udev/rules.d/70-persistent-*文件，新生成的 udev 文件，会使用新系统的 MAC 地址。
+[root@xuegod63 ~]# service network restart
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br></div></div><h1 id="二、-kvm虚拟机快照功能使用方法"><a href="#二、-kvm虚拟机快照功能使用方法" class="header-anchor">#</a> 二、 KVM虚拟机快照功能使用方法</h1> <h2 id="_1、-kvm快照的作用"><a href="#_1、-kvm快照的作用" class="header-anchor">#</a> 1、 KVM快照的作用</h2> <p>热备、灾难恢复、回滚到历史中的某个状态</p> <h2 id="_2、-kvm快照的方法"><a href="#_2、-kvm快照的方法" class="header-anchor">#</a> 2、 KVM快照的方法</h2> <p>方法1：使用lvm快照，如果分区是lvm，可以利用lvm进行kvm快照备份</p> <p>方法2：使用qcow2格式的镜像创建快照</p> <h3 id="_3、-创建kvm快照"><a href="#_3、-创建kvm快照" class="header-anchor">#</a> 3、 创建kvm快照</h3> <p>在 centos6 下，kvm 虚拟机默认使用 raw 格式的镜像格式，性能最好，速度最快，它的缺点就是不支持一些新的功能，如支持镜像,zlib 磁盘压缩,AES 加密等。</p> <p>要使用快照功能，磁盘格式必须为 qcow2。</p> <ol><li>查看快照的镜像的格式</li></ol> <div class="language- line-numbers-mode"><pre class="language-text"><code>[root@xuegod110 ~]# qemu-img info /var/lib/libvirt/images/xuegod110.img
+image: /var/lib/libvirt/images/xuegod110.img
+file format: qcow2
+virtual size: 20G (21474836480 bytes)
+disk size: 1.5G
+cluster_size: 65536
+Format specific information:
+compat: 1.1
+lazy refcounts: true
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br></div></div><p>注：开机运行中的虚拟机同样可以进行快照，但是速度没有关机的快照速度快。因为开机创建快照需要经内存中内容写的磁盘中需要时间。</p> <ol start="2"><li>对虚拟机进行快照管理</li></ol> <p>对xuegod110虚拟机创建快照</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>[root@xuegod110 ~]# virsh snapshot-create xuegod110
+Domain snapshot 1567344930 created
+
+关机创建快照
+[root@xuegod110 ~]# virsh shutdown xuegod110
+Domain xuegod110 is being shutdown
+[root@xuegod110 ~]# virsh list #查看运行中的虚拟机
+[root@xuegod110 ~]# virsh snapshot-create xuegod110 #关机状态下是瞬时完成快照
+Domain snapshot 1567345035 created
+
+对比两个快照的大小
+[root@xuegod110 ~]# qemu-img info /var/lib/libvirt/images/xuegod110.img
+image: /var/lib/libvirt/images/xuegod110.img
+file format: qcow2
+virtual size: 20G (21474836480 bytes)
+disk size: 1.8G
+cluster_size: 65536
+Snapshot list:
+ID TAG VM SIZE DATE VM CLOCK
+1 1567344930 303M 2019-09-01 21:35:30 00:28:01.316
+2 1567345035 0 2019-09-01 21:37:15 00:00:00.000
+3 http 0 2019-09-01 21:41:33 00:00:00.000
+Format specific information:
+compat: 1.1
+lazy refcounts: true
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br></div></div><p>注：这里可以看到有些快照的大小是0，关机状态下创建的快照都是0。创建快照占用的是虚拟机自身的空间。</p> <p>快照的配置文件存放路径
+<img src="/assets/img/kvm-clone-06.b609e115.png" alt="An image"></p> <ol start="4"><li>创建一个http名字的快照（别名）</li></ol> <div class="language- line-numbers-mode"><pre class="language-text"><code>[root@xuegod110 ~]# virsh snapshot-create-as xuegod110 http
+Domain snapshot http created
+[root@xuegod110 ~]# virsh snapshot-list xuegod110 #查看快照列表
+Name Creation Time State
+1567344930 2019-09-01 21:35:30 +0800 running
+1567345035 2019-09-01 21:37:15 +0800 shutoff
+http 2019-09-01 21:41:33 +0800 shutoff
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br></div></div><ol start="5"><li>查看当前虚拟机运行的快照</li></ol> <div class="language- line-numbers-mode"><pre class="language-text"><code>[root@xuegod110 ~]# virsh snapshot-current xuegod110 | head -2
+加管道进行过滤，只显示前两行
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br></div></div><p><img src="/assets/img/kvm-clone-07.76940a88.png" alt="An image"></p> <ol start="6"><li>恢复虚拟机快照</li></ol> <p>注：恢复虚拟机快照，虚拟机必须要关机状态，阿里云恢复快照同样需要关机恢复。</p> <p>（1） 查看虚拟机的状态</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>[root@xuegod110 ~]# virsh list –all
+Id	 	Name		 State
+1|	centos7.0		shut off
+1|	xuegod110	 	shut off
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br></div></div><p>（2） 开机后恢复快照，测试</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>[root@xuegod110 ~]# virsh start xuegod110
+Domain xuegod110 started
+[root@xuegod110 ~]# virsh list
+Id Name State
+3 xuegod110 running #已开机
+
+恢复快照，xuegod110有三个快照，恢复到httpd快照
+[root@xuegod110 ~]# virsh snapshot-list xuegod110
+Name Creation Time State
+1567344930 2019-09-01 21:35:30 +0800 running
+1567345035 2019-09-01 21:37:15 +0800 shutoff
+http 2019-09-01 21:41:33 +0800 shutoff
+
+[root@xuegod110 ~]# virsh snapshot-revert xuegod110 http
+[root@xuegod110 ~]# virsh snapshot-current xuegod110 | head -2 #查看当前的运行的快照
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br></div></div><p><img src="/assets/img/kvm-clone-09.a6c8ab4d.png" alt="An image"></p> <p>7、 删除快照和开机创建快照</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>[root@xuegod110 ~]# virsh snapshot-list xuegod110
+Name Creation Time State
+1567344930 2019-09-01 21:35:30 +0800 running
+1567345035 2019-09-01 21:37:15 +0800 shutoff
+http 2019-09-01 21:41:33 +0800 shutoff
+
+删除中间的快照
+[root@xuegod110 ~]# virsh snapshot-delete xuegod110 1567345035
+Domain snapshot 1567345035 deleted
+
+再次查看快照列表
+[root@xuegod110 ~]# virsh snapshot-list xuegod110
+Name Creation Time State
+1567344930 2019-09-01 21:35:30 +0800 running
+http 2019-09-01 21:41:33 +0800 shutoff
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br></div></div><p>8、 恢复快照后开机再次创建快照</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>（1） 开启虚拟机
+[root@xuegod110 ~]# virsh start xuegod110
+Domain xuegod110 started
+
+（2） 创建快照
+[root@xuegod110 ~]# virsh snapshot-create-as xuegod110 http-kaiji
+Domain snapshot http-kaiji created
+
+（3） 对比两次创建的快照大小
+[root@xuegod110 ~]# qemu-img info /var/lib/libvirt/images/xuegod110.img
+image: /var/lib/libvirt/images/xuegod110.img
+file format: qcow2
+virtual size: 20G (21474836480 bytes)
+disk size: 2.2G
+cluster_size: 65536
+Snapshot list:
+ID TAG VM SIZE DATE VM CLOCK
+1 1567344930 303M 2019-09-01 21:35:30 00:28:01.316
+3 http 0 2019-09-01 21:41:33 00:00:00.000
+4 http-kaiji 280M 2019-09-01 21:59:06 00:00:47.021
+Format specific information:
+compat: 1.1
+lazy refcounts: true
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br></div></div><p>注：开机创建的虚拟机快照有大小，是因为有内存中的数据回写到磁盘中
+<section style="border-top:2px solid #eaecef;padding-top:1rem;margin-top:2rem;"><div><span data-flag-title="Your Article Title" class="leancloud-visitors"><em class="post-meta-item-text">阅读量： </em> <i class="leancloud-visitors-count"></i></span></div> <h3><a href="javascript:;"></a>
+    评 论：
+  </h3> <div id="vcomments"></div></section></p></div></section> <footer class="page-edit"><!----> <!----></footer> <!----> <div class="comments-wrapper"><!----></div> <ul class="side-bar sub-sidebar-wrapper" style="width:12rem;" data-v-70334359><li class="level-2" data-v-70334359><a href="/views/Linux/KVM/KVM-cloneandsnapshot.html#一、-克隆kvm虚拟机的语法和注意事项" class="sidebar-link reco-side-一、-克隆kvm虚拟机的语法和注意事项" data-v-70334359>一、 克隆KVM虚拟机的语法和注意事项</a></li><li class="level-2" data-v-70334359><a href="/views/Linux/KVM/KVM-cloneandsnapshot.html#二、-克隆kvm虚拟机-centos7-0" class="sidebar-link reco-side-二、-克隆kvm虚拟机-centos7-0" data-v-70334359>二、 克隆KVM虚拟机（centos7.0）</a></li><li class="level-2" data-v-70334359><a href="/views/Linux/KVM/KVM-cloneandsnapshot.html#_1、-kvm快照的作用" class="sidebar-link reco-side-_1、-kvm快照的作用" data-v-70334359>1、 KVM快照的作用</a></li><li class="level-2" data-v-70334359><a href="/views/Linux/KVM/KVM-cloneandsnapshot.html#_2、-kvm快照的方法" class="sidebar-link reco-side-_2、-kvm快照的方法" data-v-70334359>2、 KVM快照的方法</a></li><li class="level-3" data-v-70334359><a href="/views/Linux/KVM/KVM-cloneandsnapshot.html#_3、-创建kvm快照" class="sidebar-link reco-side-_3、-创建kvm快照" data-v-70334359>3、 创建kvm快照</a></li></ul></main> <!----></div></div></div></div><div class="global-ui"><div class="back-to-ceiling" style="right:1rem;bottom:6rem;width:2.5rem;height:2.5rem;border-radius:.25rem;line-height:2.5rem;display:none;" data-v-c6073ba8 data-v-c6073ba8><svg t="1574745035067" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5404" class="icon" data-v-c6073ba8><path d="M526.60727968 10.90185116a27.675 27.675 0 0 0-29.21455937 0c-131.36607665 82.28402758-218.69155461 228.01873535-218.69155402 394.07834331a462.20625001 462.20625001 0 0 0 5.36959153 69.94390903c1.00431239 6.55289093-0.34802892 13.13561351-3.76865779 18.80351572-32.63518765 54.11355614-51.75690182 118.55860487-51.7569018 187.94566865a371.06718723 371.06718723 0 0 0 11.50484808 91.98906777c6.53300375 25.50556257 41.68394495 28.14064038 52.69160883 4.22606766 17.37162448-37.73630017 42.14135425-72.50938081 72.80769204-103.21549295 2.18761121 3.04276886 4.15646224 6.24463696 6.40373557 9.22774369a1871.4375 1871.4375 0 0 0 140.04691725 5.34970492 1866.36093723 1866.36093723 0 0 0 140.04691723-5.34970492c2.24727335-2.98310674 4.21612437-6.18497483 6.3937923-9.2178004 30.66633723 30.70611158 55.4360664 65.4791928 72.80769147 103.21549355 11.00766384 23.91457269 46.15860503 21.27949489 52.69160879-4.22606768a371.15156223 371.15156223 0 0 0 11.514792-91.99901164c0-69.36717486-19.13165746-133.82216804-51.75690182-187.92578088-3.42062944-5.66790279-4.76302748-12.26056868-3.76865837-18.80351632a462.20625001 462.20625001 0 0 0 5.36959269-69.943909c-0.00994388-166.08943902-87.32547796-311.81420293-218.6915546-394.09823051zM605.93803103 357.87693858a93.93749974 93.93749974 0 1 1-187.89594924 6.1e-7 93.93749974 93.93749974 0 0 1 187.89594924-6.1e-7z" p-id="5405" data-v-c6073ba8></path><path d="M429.50777625 765.63860547C429.50777625 803.39355007 466.44236686 1000.39046097 512.00932183 1000.39046097c45.56695499 0 82.4922232-197.00623328 82.5015456-234.7518555 0-37.75494459-36.9345906-68.35043303-82.4922232-68.34111062-45.57627738-0.00932239-82.52019037 30.59548842-82.51086798 68.34111062z" p-id="5406" data-v-c6073ba8></path></svg></div><div class="kanbanniang" data-v-5775ee02><div class="banniang-container" style="display:;" data-v-5775ee02><div class="messageBox" style="left:10px;bottom:190px;display:none;" data-v-5775ee02>
+      我是蚝仔烙欢迎你的关注 
+    </div> <div class="operation" style="left:90px;bottom:40px;display:;" data-v-5775ee02><i class="kbnfont kbn-ban-home ban-home" data-v-5775ee02></i> <i class="kbnfont kbn-ban-message message" data-v-5775ee02></i> <i class="kbnfont kbn-ban-close close" data-v-5775ee02></i> <a target="_blank" href="https://vuepress-theme-reco.recoluan.com/views/plugins/kanbanniang.html" data-v-5775ee02><i class="kbnfont kbn-ban-info info" data-v-5775ee02></i></a> <i class="kbnfont kbn-ban-theme skin" style="display:;" data-v-5775ee02></i></div> <canvas id="banniang" width="240" height="352" class="live2d" style="left:80px;bottom:-20px;opacity:0.9;" data-v-5775ee02></canvas></div> <div class="showBanNiang" style="display:none;" data-v-5775ee02>
+    看板娘
+  </div></div></div></div>
+    <script src="/assets/js/app.cb239607.js" defer></script><script src="/assets/js/3.b5031865.js" defer></script><script src="/assets/js/1.21311c90.js" defer></script><script src="/assets/js/8.4f1544dc.js" defer></script><script src="/assets/js/15.f0eedfb9.js" defer></script>
+  </body>
+</html>

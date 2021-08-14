@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Mysql备份数据库 | 蚝仔烙</title>
+    <meta name="generator" content="VuePress 1.8.2">
+    <link rel="icon" href="/favicon.ico">
+    <meta name="description" content="This is the personal blog of oyster">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+    
+    <link rel="preload" href="/assets/css/0.styles.f7db033e.css" as="style"><link rel="preload" href="/assets/js/app.cb239607.js" as="script"><link rel="preload" href="/assets/js/3.b5031865.js" as="script"><link rel="preload" href="/assets/js/1.21311c90.js" as="script"><link rel="preload" href="/assets/js/23.398482ee.js" as="script"><link rel="preload" href="/assets/js/15.f0eedfb9.js" as="script"><link rel="prefetch" href="/assets/js/10.07217ceb.js"><link rel="prefetch" href="/assets/js/11.7dcea16d.js"><link rel="prefetch" href="/assets/js/12.4a5b938a.js"><link rel="prefetch" href="/assets/js/13.2ec8b12e.js"><link rel="prefetch" href="/assets/js/14.85b8f9a3.js"><link rel="prefetch" href="/assets/js/16.60f0a9eb.js"><link rel="prefetch" href="/assets/js/17.51743234.js"><link rel="prefetch" href="/assets/js/18.19a85d64.js"><link rel="prefetch" href="/assets/js/19.f2c9559a.js"><link rel="prefetch" href="/assets/js/20.e8956008.js"><link rel="prefetch" href="/assets/js/21.382df535.js"><link rel="prefetch" href="/assets/js/22.cff47005.js"><link rel="prefetch" href="/assets/js/24.d630b366.js"><link rel="prefetch" href="/assets/js/25.275780ab.js"><link rel="prefetch" href="/assets/js/26.23e5b2b0.js"><link rel="prefetch" href="/assets/js/27.77924f3d.js"><link rel="prefetch" href="/assets/js/28.154c79c8.js"><link rel="prefetch" href="/assets/js/29.d17c191b.js"><link rel="prefetch" href="/assets/js/30.aa5d257a.js"><link rel="prefetch" href="/assets/js/31.12a80f6c.js"><link rel="prefetch" href="/assets/js/32.ba8121ce.js"><link rel="prefetch" href="/assets/js/33.6819db4f.js"><link rel="prefetch" href="/assets/js/34.0dbf4641.js"><link rel="prefetch" href="/assets/js/35.312f1271.js"><link rel="prefetch" href="/assets/js/36.0f0b6a1b.js"><link rel="prefetch" href="/assets/js/4.5240f799.js"><link rel="prefetch" href="/assets/js/5.ee618cb0.js"><link rel="prefetch" href="/assets/js/6.ffe3abe9.js"><link rel="prefetch" href="/assets/js/7.01f76950.js"><link rel="prefetch" href="/assets/js/8.4f1544dc.js"><link rel="prefetch" href="/assets/js/9.25ddbd8c.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.f7db033e.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar" data-v-1156296a><div data-v-1156296a><div id="loader-wrapper" class="loading-wrapper" data-v-d48f4d20 data-v-1156296a data-v-1156296a><div class="loader-main" data-v-d48f4d20><div data-v-d48f4d20></div><div data-v-d48f4d20></div><div data-v-d48f4d20></div><div data-v-d48f4d20></div></div> <!----> <!----></div> <div class="password-shadow password-wrapper-out" style="display:none;" data-v-4e82dffc data-v-1156296a data-v-1156296a><h3 class="title" data-v-4e82dffc data-v-4e82dffc>蚝仔烙</h3> <p class="description" data-v-4e82dffc data-v-4e82dffc>This is the personal blog of oyster</p> <label id="box" class="inputBox" data-v-4e82dffc data-v-4e82dffc><input type="password" value="" data-v-4e82dffc> <span data-v-4e82dffc>Konck! Knock!</span> <button data-v-4e82dffc>OK</button></label> <div class="footer" data-v-4e82dffc data-v-4e82dffc><span data-v-4e82dffc><i class="iconfont reco-theme" data-v-4e82dffc></i> <a target="blank" href="https://vuepress-theme-reco.recoluan.com" data-v-4e82dffc>vuePress-theme-reco</a></span> <span data-v-4e82dffc><i class="iconfont reco-copyright" data-v-4e82dffc></i> <a data-v-4e82dffc><span data-v-4e82dffc>蚝仔烙</span>
+            
+          <!---->
+          2021
+        </a></span></div></div> <div class="hide" data-v-1156296a><header class="navbar" data-v-1156296a><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><img src="/head.png" alt="蚝仔烙" class="logo"> <span class="site-name">蚝仔烙</span></a> <div class="links"><div class="color-picker"><a class="color-button"><i class="iconfont reco-color"></i></a> <div class="color-picker-menu" style="display:none;"><div class="mode-options"><h4 class="title">Choose mode</h4> <ul class="color-mode-options"><li class="dark">dark</li><li class="auto active">auto</li><li class="light">light</li></ul></div></div></div> <div class="search-box"><i class="iconfont reco-search"></i> <input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/" class="nav-link"><i class="iconfont reco-home"></i>
+  家
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont reco-category"></i>
+      分类
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/categories/Linux/" class="nav-link"><i class="undefined"></i>
+  Linux
+</a></li><li class="dropdown-item"><!----> <a href="/categories/docker/" class="nav-link"><i class="undefined"></i>
+  docker
+</a></li><li class="dropdown-item"><!----> <a href="/categories/KVM/" class="nav-link"><i class="undefined"></i>
+  KVM
+</a></li><li class="dropdown-item"><!----> <a href="/categories/数据库/" class="nav-link"><i class="undefined"></i>
+  数据库
+</a></li><li class="dropdown-item"><!----> <a href="/categories/grafana/" class="nav-link"><i class="undefined"></i>
+  grafana
+</a></li><li class="dropdown-item"><!----> <a href="/categories/zabbix/" class="nav-link"><i class="undefined"></i>
+  zabbix
+</a></li><li class="dropdown-item"><!----> <a href="/categories/nginx/" class="nav-link"><i class="undefined"></i>
+  nginx
+</a></li><li class="dropdown-item"><!----> <a href="/categories/selinux/" class="nav-link"><i class="undefined"></i>
+  selinux
+</a></li><li class="dropdown-item"><!----> <a href="/categories/redis/" class="nav-link"><i class="undefined"></i>
+  redis
+</a></li><li class="dropdown-item"><!----> <a href="/categories/shell/" class="nav-link"><i class="undefined"></i>
+  shell
+</a></li><li class="dropdown-item"><!----> <a href="/categories/黑苹果/" class="nav-link"><i class="undefined"></i>
+  黑苹果
+</a></li></ul></div></div><div class="nav-item"><a href="/tag/" class="nav-link"><i class="iconfont reco-tag"></i>
+  标签
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont reco-message"></i>
+      联系
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="https://github.com/" target="_blank" rel="noopener noreferrer" class="nav-link external"><i class="iconfont reco-github"></i>
+  GitHub
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li></ul></div></div> <!----></nav></div></header> <div class="sidebar-mask" data-v-1156296a></div> <aside class="sidebar" data-v-1156296a><div class="personal-info-wrapper" data-v-828910c6 data-v-1156296a><img src="/head.png" alt="author-avatar" class="personal-img" data-v-828910c6> <h3 class="name" data-v-828910c6>
+    蚝仔烙
+  </h3> <div class="num" data-v-828910c6><div data-v-828910c6><h3 data-v-828910c6>24</h3> <h6 data-v-828910c6>Articles</h6></div> <div data-v-828910c6><h3 data-v-828910c6>15</h3> <h6 data-v-828910c6>Tags</h6></div></div> <ul class="social-links" data-v-828910c6></ul> <hr data-v-828910c6></div> <nav class="nav-links"><div class="nav-item"><a href="/" class="nav-link"><i class="iconfont reco-home"></i>
+  家
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont reco-category"></i>
+      分类
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/categories/Linux/" class="nav-link"><i class="undefined"></i>
+  Linux
+</a></li><li class="dropdown-item"><!----> <a href="/categories/docker/" class="nav-link"><i class="undefined"></i>
+  docker
+</a></li><li class="dropdown-item"><!----> <a href="/categories/KVM/" class="nav-link"><i class="undefined"></i>
+  KVM
+</a></li><li class="dropdown-item"><!----> <a href="/categories/数据库/" class="nav-link"><i class="undefined"></i>
+  数据库
+</a></li><li class="dropdown-item"><!----> <a href="/categories/grafana/" class="nav-link"><i class="undefined"></i>
+  grafana
+</a></li><li class="dropdown-item"><!----> <a href="/categories/zabbix/" class="nav-link"><i class="undefined"></i>
+  zabbix
+</a></li><li class="dropdown-item"><!----> <a href="/categories/nginx/" class="nav-link"><i class="undefined"></i>
+  nginx
+</a></li><li class="dropdown-item"><!----> <a href="/categories/selinux/" class="nav-link"><i class="undefined"></i>
+  selinux
+</a></li><li class="dropdown-item"><!----> <a href="/categories/redis/" class="nav-link"><i class="undefined"></i>
+  redis
+</a></li><li class="dropdown-item"><!----> <a href="/categories/shell/" class="nav-link"><i class="undefined"></i>
+  shell
+</a></li><li class="dropdown-item"><!----> <a href="/categories/黑苹果/" class="nav-link"><i class="undefined"></i>
+  黑苹果
+</a></li></ul></div></div><div class="nav-item"><a href="/tag/" class="nav-link"><i class="iconfont reco-tag"></i>
+  标签
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont reco-message"></i>
+      联系
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="https://github.com/" target="_blank" rel="noopener noreferrer" class="nav-link external"><i class="iconfont reco-github"></i>
+  GitHub
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li></ul></div></div> <!----></nav> <!----> </aside> <div class="password-shadow password-wrapper-in" style="display:none;" data-v-4e82dffc data-v-1156296a><h3 class="title" data-v-4e82dffc data-v-4e82dffc>Mysql备份数据库</h3> <!----> <label id="box" class="inputBox" data-v-4e82dffc data-v-4e82dffc><input type="password" value="" data-v-4e82dffc> <span data-v-4e82dffc>Konck! Knock!</span> <button data-v-4e82dffc>OK</button></label> <div class="footer" data-v-4e82dffc data-v-4e82dffc><span data-v-4e82dffc><i class="iconfont reco-theme" data-v-4e82dffc></i> <a target="blank" href="https://vuepress-theme-reco.recoluan.com" data-v-4e82dffc>vuePress-theme-reco</a></span> <span data-v-4e82dffc><i class="iconfont reco-copyright" data-v-4e82dffc></i> <a data-v-4e82dffc><span data-v-4e82dffc>蚝仔烙</span>
+            
+          <!---->
+          2021
+        </a></span></div></div> <div data-v-1156296a><main class="page" style="padding-right:0;"><section><div class="page-title"><h1 class="title">Mysql备份数据库</h1> <div data-v-1ff7123e><i class="iconfont reco-account" data-v-1ff7123e><span data-v-1ff7123e>蚝仔烙</span></i> <i class="iconfont reco-date" data-v-1ff7123e><span data-v-1ff7123e>5/4/2021</span></i> <!----> <i class="tags iconfont reco-tag" data-v-1ff7123e><span class="tag-item" data-v-1ff7123e>Linux</span><span class="tag-item" data-v-1ff7123e>数据库</span><span class="tag-item" data-v-1ff7123e>Mysql</span></i></div></div> <div class="theme-reco-content content__default"><div class="language- line-numbers-mode"><pre class="language-text"><code>#首先来看看数据库中的数据
+mysql&gt; select * from test;
++-----+------+
+| id  | name |
++-----+------+
+|   1 | 1    |
+|  11 | text |
+|  21 | abc  |
+|   9 | bcd  |
+| 111 | 1    |
+| 441 | text |
+|  41 | abc  |
+| 999 | bcd  |
++-----+------+
+8 rows in set (0.00 sec)
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br></div></div><h5 id="_1、单库备份"><a href="#_1、单库备份" class="header-anchor">#</a> 1、单库备份</h5> <div class="language- line-numbers-mode"><pre class="language-text"><code>[root@centos6 ~]# mysqldump -uroot -p test &gt;/download/testbak_$(date +%F).sql
+
+Enter password: 
+
+[root@centos6 ~]# ll /download/
+total 2
+-rw-r--r--.  1 root root 1888 Dec 12 20:34 testbak_2016-12-12.sql
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br></div></div><h5 id="备份文件的内容-实际的过程就是将创建数据库、建表、插入数据的sql语句备份出来-也可以说是将sql语句导出"><a href="#备份文件的内容-实际的过程就是将创建数据库、建表、插入数据的sql语句备份出来-也可以说是将sql语句导出" class="header-anchor">#</a> #备份文件的内容：实际的过程就是将创建数据库、建表、插入数据的sql语句备份出来，也可以说是将sql语句导出</h5> <div class="language- line-numbers-mode"><pre class="language-text"><code>-B参数
+[root@centos6 ~]# mysqldump -uroot -p -B test &gt;/download/testbak_$(date +%F)_b.sql
+
+Enter password: 
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br></div></div><h5 id="b参数的作用-就是当我们的数据库丢失时-可以直接用此备份文件进行恢复-无需再重新建库、建表-然后再进行数据恢复的操作"><a href="#b参数的作用-就是当我们的数据库丢失时-可以直接用此备份文件进行恢复-无需再重新建库、建表-然后再进行数据恢复的操作" class="header-anchor">#</a> #-B参数的作用，就是当我们的数据库丢失时，可以直接用此备份文件进行恢复，无需再重新建库、建表，然后再进行数据恢复的操作</h5> <h5 id="_2、压缩备份"><a href="#_2、压缩备份" class="header-anchor">#</a> 2、压缩备份</h5> <p>有时候，数据库的数据比较大，可能会用到压缩后进行备份，节省备份时间与磁盘空间的使用</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>[root@centos6 ~]# mysqldump -uroot -p -B test|gzip &gt;/download/testbak_$(date +%F).sql.gz、
+
+Enter password: 
+
+[root@centos6 ~]# ll /download/testbak_2016-12-12.sql.gz
+-rw-r--r--. 1 root root 753 Dec 12 20:49 /download/testbak_2016-12-12.sql.gz
+
+[root@centos6 ~]# ll /download/
+total 14
+-rw-r--r--.  1 root root 2027 Dec 12 20:41 testbak_2016-12-12_b.sql
+-rw-r--r--.  1 root root 1888 Dec 12 20:34 testbak_2016-12-12.sql
+-rw-r--r--.  1 root root  753 Dec 12 20:49 testbak_2016-12-12.sql.gz
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br></div></div><p>同时也可以看的压缩后的效果</p> <h5 id="_3、多库备份"><a href="#_3、多库备份" class="header-anchor">#</a> 3、多库备份</h5> <div class="language- line-numbers-mode"><pre class="language-text"><code>[root@centos6 ~]# mysqldump -uroot -p -B test mysql|gzip &gt;/download/testbak_$(date +%F).sql01.gz
+
+Enter password: 
+
+-- Warning: Skipping the data of table mysql.event. Specify the --events option explicitly.
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br></div></div><p><strong>此处有个警告信息，可以忽略也可以备份时加上参数，备份语句如下</strong></p> <div class="language- line-numbers-mode"><pre class="language-text"><code>[root@centos6 ~]#mysqldump -uroot -p -B --events test mysql|gzip 	&gt;/download/testbak_$(date +%F).sql02.gz**
+
+Enter password:
+
+[root@centos6 ~]# ll /download/testbak_2016-12-12.sql02.gz                 
+
+-rw-r--r--. 1 root root 152749 Dec 12 20:54 /download/testbak_2016-12-12.sql02.gz
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br></div></div><p><strong>这样就不会有这为警告信息了</strong></p> <p>但是这种多库一起备份，就会产生一个问题，如果只是其中一个数据库有问题了，就不好进行单库恢复了，故此备份方法不常用，也不符合实际需求，因此多库备份时就需要进行多次单库备份的操作</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>[root@centos6 ~]# mysqldump -uroot -p -B test|gzip &gt;/download/testbackup_$(date +%F).sql.gz                 
+
+Enter password: 
+
+[root@centos6 ~]# mysqldump -uroot -p -B --events mysql|gzip &gt;/download/mysqlbak_$(date +%F).sql.gz           
+
+Enter password: 
+
+[root@centos6 ~]# ll /download/
+total 80
+-rw-r--r--.  1 root root 152608 Dec 12 20:58 mysqlbak_2016-12-12.sql.gz
+-rw-r--r--.  1 root root    754 Dec 12 20:58 testbackup_2016-12-12.sql.gz
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br></div></div><h5 id="_4、单表备份"><a href="#_4、单表备份" class="header-anchor">#</a> 4、单表备份</h5> <p>分库备份是为了恢复数据库时方便操作，但是同样面临问题，如果是某个库中的某一个表有损坏，但又不有全库进行恢复，所以实际生产中常用的是分库、分表进行备份，这样数据也备份了，恢复时也好操作</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>[root@centos6 ~]# mysqldump -uroot -p -B test test &gt;/download/test_testbak_$(date +%F).sql      
+
+Enter password: 
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br></div></div><p><strong>因此分表备份同分库备份一样，只需要进行多次单表备份的操作，但是有的小伙伴肯定会提出问题了，如果一个库里几千张表，几万张表，这种备份要备到猴年马月吧？？？？，数据量比较大的备份可以使用专业的备份工具，数据量不大或者表不是很多的情况，可以将备份操作写成脚本 纳入定时任务，定时执行，只需要检查备份是否成功即可</strong></p> <div class="language- line-numbers-mode"><pre class="language-text"><code>[root@centos6 scripts]# vi bak.sh 
+
+#!/bin/sh
+##########################################
+#this scripts create by root of mingongge
+#create at 2016-11-11
+#######################################ß
+ip=`grep 'IPADDR' /etc/sysconfig/network-scripts/ifcfg-eth0|awk -F &quot;=&quot; '{print $2}'
+
+#定义服务器IP变量
+BAKDIR=/backup  
+
+#定义备份路径
+
+[ ! -d $BAKDIR/${ip} ] &amp;&amp; mkdir -p $BAKDIR/${ip}
+
+#判断如果不存在这个路径就创建一个，为了服务器多的时候方便看
+
+DB_PWD=&quot;mingongge&quot;
+DB_USER=&quot;root&quot;
+MYSQL=&quot;/application/mysql/bin/mysql&quot;
+MYSQL_DUMP=&quot;/application/mysql/bin/mysqldump&quot;
+DATA=`date +%F`
+
+#bak data of test's databses
+
+DB_NAME=`$MYSQL -u$DB_USER -p$DB_PWD -e &quot;show databases;&quot;|sed '1,5d'`
+
+ #定义数据库变量
+
+for name in $DB_NAME
+
+#for循环语句取库名
+
+do
+
+ $MYSQL_DUMP -u$DB_USER -p$DB_PWD -B ${name} |gzip &gt;$BAKDIR/${ip}/${name}_$DATA.sql.gz  
+
+ #全库备份
+
+ [ ! -d $BAKDIR/${ip}/${name} ] &amp;&amp; mkdir -p  $BAKDIR/${ip}/${name}
+
+#判断这个路径，为了区别哪个库的备份文件
+
+ for tablename in `$MYSQL -u$DB_USER -p$DB_PWD -e &quot;show tables from ${name};&quot;|sed '1d'`
+
+#for循环语句取表名
+
+ do
+  $MYSQL_DUMP -u$DB_USER -p$DB_PWD ${name} ${tablename} |gzip &gt;$BAKDIR/${ip}/${name}/${tablename}_$DATA.sql.gz
+
+#分表备份
+ done
+done
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br><span class="line-number">33</span><br><span class="line-number">34</span><br><span class="line-number">35</span><br><span class="line-number">36</span><br><span class="line-number">37</span><br><span class="line-number">38</span><br><span class="line-number">39</span><br><span class="line-number">40</span><br><span class="line-number">41</span><br><span class="line-number">42</span><br><span class="line-number">43</span><br><span class="line-number">44</span><br><span class="line-number">45</span><br><span class="line-number">46</span><br><span class="line-number">47</span><br><span class="line-number">48</span><br><span class="line-number">49</span><br><span class="line-number">50</span><br><span class="line-number">51</span><br><span class="line-number">52</span><br><span class="line-number">53</span><br><span class="line-number">54</span><br></div></div><p><strong>执行的结果如下</strong></p> <div class="language- line-numbers-mode"><pre class="language-text"><code>[root@ranzhioa ~]# tree /backup/
+/backup/
+10.1xx.1xx.1xx  **#服务器IP**
+ xxxxxxx      **#其实是库名**
+   cash_balance_2016-12-15.sql.gz
+   cash_depositor_2016-12-15.sql.gz
+   cash_trade_2016-12-15.sql.gz
+   crm_customer_2016-12-15.sql.gz
+   crm_delivery_2016-12-15.sql.gz
+   crm_order_2016-12-15.sql.gz
+   crm_orderAction_2016-12-15.sql.gz
+   crm_orderField_2016-12-15.sql.gz
+   crm_plan_2016-12-15.sql.gz
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br></div></div><section style="border-top:2px solid #eaecef;padding-top:1rem;margin-top:2rem;"><div><span data-flag-title="Your Article Title" class="leancloud-visitors"><em class="post-meta-item-text">阅读量： </em> <i class="leancloud-visitors-count"></i></span></div> <h3><a href="javascript:;"></a>
+    评 论：
+  </h3> <div id="vcomments"></div></section></div></section> <footer class="page-edit"><!----> <!----></footer> <!----> <div class="comments-wrapper"><!----></div> <ul class="side-bar sub-sidebar-wrapper" style="width:0;" data-v-70334359></ul></main> <!----></div></div></div></div><div class="global-ui"><div class="back-to-ceiling" style="right:1rem;bottom:6rem;width:2.5rem;height:2.5rem;border-radius:.25rem;line-height:2.5rem;display:none;" data-v-c6073ba8 data-v-c6073ba8><svg t="1574745035067" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5404" class="icon" data-v-c6073ba8><path d="M526.60727968 10.90185116a27.675 27.675 0 0 0-29.21455937 0c-131.36607665 82.28402758-218.69155461 228.01873535-218.69155402 394.07834331a462.20625001 462.20625001 0 0 0 5.36959153 69.94390903c1.00431239 6.55289093-0.34802892 13.13561351-3.76865779 18.80351572-32.63518765 54.11355614-51.75690182 118.55860487-51.7569018 187.94566865a371.06718723 371.06718723 0 0 0 11.50484808 91.98906777c6.53300375 25.50556257 41.68394495 28.14064038 52.69160883 4.22606766 17.37162448-37.73630017 42.14135425-72.50938081 72.80769204-103.21549295 2.18761121 3.04276886 4.15646224 6.24463696 6.40373557 9.22774369a1871.4375 1871.4375 0 0 0 140.04691725 5.34970492 1866.36093723 1866.36093723 0 0 0 140.04691723-5.34970492c2.24727335-2.98310674 4.21612437-6.18497483 6.3937923-9.2178004 30.66633723 30.70611158 55.4360664 65.4791928 72.80769147 103.21549355 11.00766384 23.91457269 46.15860503 21.27949489 52.69160879-4.22606768a371.15156223 371.15156223 0 0 0 11.514792-91.99901164c0-69.36717486-19.13165746-133.82216804-51.75690182-187.92578088-3.42062944-5.66790279-4.76302748-12.26056868-3.76865837-18.80351632a462.20625001 462.20625001 0 0 0 5.36959269-69.943909c-0.00994388-166.08943902-87.32547796-311.81420293-218.6915546-394.09823051zM605.93803103 357.87693858a93.93749974 93.93749974 0 1 1-187.89594924 6.1e-7 93.93749974 93.93749974 0 0 1 187.89594924-6.1e-7z" p-id="5405" data-v-c6073ba8></path><path d="M429.50777625 765.63860547C429.50777625 803.39355007 466.44236686 1000.39046097 512.00932183 1000.39046097c45.56695499 0 82.4922232-197.00623328 82.5015456-234.7518555 0-37.75494459-36.9345906-68.35043303-82.4922232-68.34111062-45.57627738-0.00932239-82.52019037 30.59548842-82.51086798 68.34111062z" p-id="5406" data-v-c6073ba8></path></svg></div><div class="kanbanniang" data-v-5775ee02><div class="banniang-container" style="display:;" data-v-5775ee02><div class="messageBox" style="left:10px;bottom:190px;display:none;" data-v-5775ee02>
+      我是蚝仔烙欢迎你的关注 
+    </div> <div class="operation" style="left:90px;bottom:40px;display:;" data-v-5775ee02><i class="kbnfont kbn-ban-home ban-home" data-v-5775ee02></i> <i class="kbnfont kbn-ban-message message" data-v-5775ee02></i> <i class="kbnfont kbn-ban-close close" data-v-5775ee02></i> <a target="_blank" href="https://vuepress-theme-reco.recoluan.com/views/plugins/kanbanniang.html" data-v-5775ee02><i class="kbnfont kbn-ban-info info" data-v-5775ee02></i></a> <i class="kbnfont kbn-ban-theme skin" style="display:;" data-v-5775ee02></i></div> <canvas id="banniang" width="240" height="352" class="live2d" style="left:80px;bottom:-20px;opacity:0.9;" data-v-5775ee02></canvas></div> <div class="showBanNiang" style="display:none;" data-v-5775ee02>
+    看板娘
+  </div></div></div></div>
+    <script src="/assets/js/app.cb239607.js" defer></script><script src="/assets/js/3.b5031865.js" defer></script><script src="/assets/js/1.21311c90.js" defer></script><script src="/assets/js/23.398482ee.js" defer></script><script src="/assets/js/15.f0eedfb9.js" defer></script>
+  </body>
+</html>
